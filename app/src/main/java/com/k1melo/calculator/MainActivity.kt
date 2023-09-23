@@ -38,22 +38,43 @@ class MainActivity : AppCompatActivity() {
         addNumber(button8, calculatorResult)
         addNumber(button9, calculatorResult)
         addNumber(button0, calculatorResult)
+
+        clearAll(calculatorResult)
+        clearLast(calculatorResult)
     }
 
     @SuppressLint("SetTextI18n")
     fun addNumber(button: Button, text: TextView) {
         button.setOnClickListener {
-            if (text.length() < 18) {
-                if ((text.length() + 1) % 4 == 0) {
-                    text.text = """${(text.text)},"""
-                }
+            if (text.length() < 15) {
+
                 text.text = """${(text.text)}${(button.text)}"""
-            } else if(text.length() < 27) {
-                if ((text.length() + 1) % 4 == 0) {
-                    text.text = """${(text.text)},"""
-                }
+            } else if(text.length() < 23) {
+
                 text.textSize = 35F
                 text.text = """${(text.text)}${(button.text)}"""
+            }
+        }
+    }
+
+    private fun clearAll(text: TextView) {
+        val buttonClearAll: Button = findViewById(R.id.clearAll)
+
+        buttonClearAll.setOnClickListener {
+            text.text = ""
+            text.hint = "0"
+            text.textSize = 50F
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun clearLast(text: TextView) {
+        val buttonClearOne: Button = findViewById(R.id.clearOne)
+
+        buttonClearOne.setOnClickListener {
+            text.text = text.text.removeSuffix(text.text.last().toString())
+            if (text.length() < 18) {
+                text.textSize = 50F
             }
         }
     }
